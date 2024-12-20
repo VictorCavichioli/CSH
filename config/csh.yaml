@@ -1,0 +1,45 @@
+### Repair Agent configuration
+
+## Connection
+## Properties for connection to Cassandra nodes
+##
+connection:
+  cql:
+    ## Configuration to define Agent Strategy and hosts for CSH
+    ## to connect to. The application will use the configurations
+    ## specified below, connecting to the listed hosts;
+    agent:
+      ## Each CSH instance must have unique name.
+      ## (instanceName: unique identifier), that will be used
+      ## as csh_id (partition key in nodes_sync table).
+      instance_name: unique_identifier
+      ## Define the Agent strategy, it can be
+      ## - datacenterAware;
+      ## - rackAware; and
+      ## - hostAware.
+      type: datacenter_aware
+      ## Specifies the datacenter that is considered "local" by the load balancing policy,
+      ## The specified datacenter should match with the contact point datacenter
+      local_datacenter: datacenter1
+      ## Initial contact points list for ecChronos
+      ## to establish first connection with Cassandra.
+      contact_points:
+        - host: 192.168.32.2
+          port: 9042
+        - host: 192.168.32.3
+          port: 9042
+      ## Configuration to define datacenters for CSH
+      ## to connect to, datacenterAware enable means that
+      ## CSH will be responsible for all nodes in the
+      ## datacenter list.
+      datacenter_aware:
+        datacenters:
+          - name: datacenter1
+          - name: datacenter2
+
+rest_server:
+  ##
+  ## The host and port used for the HTTP server
+  ##
+  host: localhost
+  port: 8080
